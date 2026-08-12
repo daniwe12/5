@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dani Abbaa Carraa - Admin Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f6fa;
+    color:#222;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url(2.jpg) center/cover no-repeat;
+}
+
+.login-card{
+    width:100%;
+    max-width:400px;
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+}
+
+.login-card h1{
+    text-align:center;
+    color:#075e54;
+    margin-bottom:8px;
+}
+
+.login-card p{
+    text-align:center;
+    color:#777;
+    margin-bottom:18px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#128c7e;
+}
+
+button{
+    cursor:pointer;
+}
+
+.login-btn{
+    width:100%;
+    border:none;
+    background:#128c7e;
+    color:white;
+    padding:13px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+.login-btn:hover{
+    background:#075e54;
+}
+
+.error{
+    background:#ffebee;
+    color:#b71c1c;
+    padding:11px;
+    border-radius:8px;
+    margin-top:10px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+    display:none;
+}
+
+header{
+    background:linear-gradient(
+        135deg,
+        #075e54,
+        #128c7e
+    );
+
+    color:white;
+    padding:18px 20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:15px;
+}
+
+.header-title h1{
+    font-size:22px;
+}
+
+.header-title p{
+    font-size:13px;
+    margin-top:4px;
+}
+
+.logout{
+    border:none;
+    background:#d93025;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.logout:hover{
+    background:#b71c1c;
+}
+
+.container{
+    width:95%;
+    max-width:1200px;
+    margin:20px auto;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(5,1fr);
+
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:white;
+    border-radius:13px;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:25px;
+}
+
+.stat-title{
+    color:#777;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.stat-number{
+    font-size:25px;
+    font-weight:bold;
+    margin-top:5px;
+    color:#075e54;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:18px;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.card h2{
+    color:#075e54;
+    margin-bottom:12px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.search-box input{
+    margin:0;
+    flex:1;
+}
+
+.filter{
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    background:white;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:650px;
+}
+
+th{
+    background:#075e54;
+    color:white;
+    padding:12px;
+    text-align:left;
+}
+
+td{
+    padding:11px;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#f7faf9;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.pending{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.approved{
+    background:#e8f5e9;
+    color:#176b2c;
+}
+
+.rejected{
+    background:#ffebee;
+    color:#b71c1c;
+}
+
+.locked{
+    background:#e8f5e9;
+    color:#176b2c;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.approve{
+    border:none;
+    background:#128c7e;
+    color:white;
+    padding:7px 10px;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+.approve:hover{
+    background:#075e54;
+}
+
+.reject{
+    border:none;
+    background:#d93025;
+    color:white;
+    padding:7px 10px;
+    border-radius:6px;
+    font-weight:bold;
+    margin-left:4px;
+}
+
+.reject:hover{
+    background:#b71c1c;
+}
+
+.view{
+    border:none;
+    background:#1877f2;
+    color:white;
+    padding:7px 10px;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+/* =========================
+   USERS & RESET REQUESTS
+========================= */
+
+.user-card, .reset-card{
+    border:1px solid #eee;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:8px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:10px;
+}
+
+.reset-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-index {
+    background: #128c7e;
+    color: white;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.user-name{
+    font-weight:bold;
+}
+
+.user-phone{
+    color:#777;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.user-ticket{
+    background:#eef8f5;
+    color:#075e54;
+    padding:6px 9px;
+    border-radius:7px;
+    font-weight:bold;
+    font-size:13px;
+}
+
+/* =========================
+   TICKET GRID
+========================= */
+
+.ticket-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(10,1fr);
+
+    gap:6px;
+}
+
+.ticket{
+    min-height:45px;
+    border-radius:7px;
+    border:1px solid #ddd;
+    background:#ecfff3;
+    font-weight:bold;
+}
+
+.ticket.taken{
+    background:#128c7e;
+    color:white;
+    border-color:#075e54;
+}
+
+.ticket.pending{
+    background:#fff3cd;
+    color:#856404;
+    border-color:#e0b100;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.7);
+
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    z-index:1000;
+}
+
+.modal-content{
+    background:white;
+    width:100%;
+    max-width:600px;
+    max-height:90vh;
+    overflow:auto;
+
+    border-radius:15px;
+    padding:20px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.close{
+    border:none;
+    background:#eee;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    font-size:20px;
+}
+
+.screenshot{
+    width:100%;
+    max-height:500px;
+    object-fit:contain;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.detail{
+    background:#f3f6fa;
+    padding:12px;
+    border-radius:9px;
+    line-height:1.8;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:25px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    .stats{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .ticket-grid{
+        grid-template-columns:
+        repeat(5,1fr);
+    }
+
+    header{
+        align-items:flex-start;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .container{
+        width:96%;
+    }
+
+    header{
+        flex-direction:column;
+    }
+
+    .stats{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .ticket-grid{
+        grid-template-columns:
+        repeat(5,1fr);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =================================================
+     ADMIN LOGIN
+================================================= -->
+
+<div
+    id="loginPage"
+    class="login-page">
+
+    <div class="login-card">
+
+        <h1>👨‍💼 Admin Login</h1>
+
+        <p>
+            Dani Abbaa Carraa Online
+        </p>
+
+
+        <input
+            id="adminUsername"
+            type="text"
+            placeholder="Admin Username">
+
+
+        <input
+            id="adminPassword"
+            type="password"
+            placeholder="Admin Password">
+
+
+        <button
+            class="login-btn"
+            onclick="adminLogin()">
+
+            🔐 Admin Login
+
+        </button>
+
+
+        <div
+            id="loginError">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     ADMIN DASHBOARD
+================================================= -->
+
+<div
+    id="dashboard"
+    class="dashboard">
+
+
+<header>
+
+    <div class="header-title">
+
+        <h1>
+            👨‍💼 Admin Dashboard
+        </h1>
+
+        <p>
+            Dani Abbaa Carraa Online
+        </p>
+
+    </div>
+
+    <button
+        class="logout"
+        onclick="adminLogout()">
+
+        🚪 Logout
+
+    </button>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =================================================
+     STATISTICS
+================================================= -->
+
+<div class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            👥
+        </div>
+
+        <div class="stat-title">
+            Total Users
+        </div>
+
+        <div
+            id="userCount"
+            class="stat-number">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🔑
+        </div>
+
+        <div class="stat-title">
+            Reset Requests
+        </div>
+
+        <div
+            id="resetCount"
+            class="stat-number">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🎫
+        </div>
+
+        <div class="stat-title">
+            Locked Tickets
+        </div>
+
+        <div
+            id="ticketCount"
+            class="stat-number">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🟡
+        </div>
+
+        <div class="stat-title">
+            Pending Payments
+        </div>
+
+        <div
+            id="pendingCount"
+            class="stat-number">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            💰
+        </div>
+
+        <div class="stat-title">
+            Approved Payments
+        </div>
+
+        <div
+            id="approvedCount"
+            class="stat-number">
+
+            0
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     ADMIN CONFIRM FOR PASSWORD RESET
+================================================= -->
+
+<div class="card">
+
+    <h2>
+        🔑 Admin Confirmation - Password Reset
+    </h2>
+
+    <div id="resetRequestsList">
+        <!-- Dynamic Reset Requests 1, 2, 3... -->
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     USERS
+================================================= -->
+
+<div class="card">
+
+    <h2>
+        👥 Users
+    </h2>
+
+
+    <div class="search-box">
+
+        <input
+            id="userSearch"
+            type="text"
+            placeholder="Search username or phone..."
+            oninput="showUsers()">
+
+    </div>
+
+
+    <div
+        id="usersList">
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     PAYMENTS
+================================================= -->
+
+<div class="card">
+
+    <h2>
+        💳 Payment Requests
+    </h2>
+
+
+    <div class="search-box">
+
+        <input
+            id="paymentSearch"
+            type="text"
+            placeholder="Search ticket, username or phone..."
+            oninput="showPayments()">
+
+
+        <select
+            id="paymentFilter"
+            class="filter"
+            onchange="showPayments()">
+
+            <option value="all">
+                All
+            </option>
+
+            <option value="pending">
+                Pending
+            </option>
+
+            <option value="approved">
+                Approved
+            </option>
+
+            <option value="rejected">
+                Rejected
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Ticket
+                    </th>
+
+                    <th>
+                        User
+                    </th>
+
+                    <th>
+                        Phone
+                    </th>
+
+                    <th>
+                        Method
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="paymentTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     TICKETS
+================================================= -->
+
+<div class="card">
+
+    <h2>
+        🎫 Tickets 1 – 500
+    </h2>
+
+    <p style="color:#777;font-size:13px;margin-bottom:12px;">
+
+        🟢 Available &nbsp;&nbsp;
+        🟡 Payment Pending &nbsp;&nbsp;
+        🟢 Locked / Approved
+
+    </p>
+
+
+    <div
+        id="ticketGrid"
+        class="ticket-grid">
+
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =================================================
+     SCREENSHOT MODAL
+================================================= -->
+
+<div
+    id="modal"
+    class="modal">
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+            <h2>
+                📸 Payment Screenshot
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="paymentDetail"
+            class="detail">
+
+        </div>
+
+
+        <img
+            id="paymentScreenshot"
+            class="screenshot">
+
+
+        <div
+            id="modalActions"
+            style="margin-top:15px;">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =================================================
+   ADMIN ACCOUNT
+================================================= */
+
+const ADMIN_USERNAME = "Tilahun";
+const ADMIN_PASSWORD = "2336biye";
+
+
+/* =================================================
+   DATABASE & STORAGE FUNCTIONS
+================================================= */
+
+function loadData(key, fallback){
+    try{
+        const data = localStorage.getItem(key);
+        if(!data) return fallback;
+        return JSON.parse(data);
+    }catch(error){
+        return fallback;
+    }
+}
+
+function saveTickets(){
+    try{
+        localStorage.setItem("tickets", JSON.stringify(tickets));
+    }catch(e){
+        console.error("Tickets save error:", e);
+    }
+}
+
+function savePayments(){
+    try{
+        localStorage.setItem("payments", JSON.stringify(payments));
+    }catch(e){
+        console.error("Payments save error:", e);
+    }
+}
+
+
+let users = loadData("users", {});
+let tickets = loadData("tickets", {});
+let payments = loadData("payments", {});
+
+
+/* =================================================
+   ADMIN LOGIN
+================================================= */
+
+function adminLogin(){
+    const username = document.getElementById("adminUsername").value.trim();
+    const password = document.getElementById("adminPassword").value;
+    const error = document.getElementById("loginError");
+
+    if(username === ADMIN_USERNAME && password === ADMIN_PASSWORD){
+        sessionStorage.setItem("adminLoggedIn", "true");
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        refreshDashboard();
+    }else{
+        error.innerHTML = `<div class="error">❌ Username ykn password sirrii miti.</div>`;
+    }
+}
+
+
+/* =================================================
+   ADMIN LOGOUT
+================================================= */
+
+function adminLogout(){
+    sessionStorage.removeItem("adminLoggedIn");
+    location.reload();
+}
+
+
+/* =================================================
+   REFRESH DATABASE
+================================================= */
+
+function refreshData(){
+    users = loadData("users", {});
+    tickets = loadData("tickets", {});
+    payments = loadData("payments", {});
+}
+
+
+/* =================================================
+   DASHBOARD REFRESH
+================================================= */
+
+function refreshDashboard(){
+    refreshData();
+    showResetRequests();
+    updateStats();
+    showUsers();
+    showPayments();
+    showTickets();
+}
+
+
+/* =================================================
+   ADMIN CONFIRM FOR PASSWORD RESET (1, 2, 3...)
+================================================= */
+
+function showResetRequests() {
+    const container = document.getElementById("resetRequestsList");
+    container.innerHTML = "";
+
+    let pendingRequests = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("reset_request_")) {
+            try {
+                const data = JSON.parse(localStorage.getItem(key));
+                if (data && data.status === "pending") {
+                    pendingRequests.push(data);
+                }
+            } catch (e) {}
+        }
+    }
+
+    if (pendingRequests.length === 0) {
+        container.innerHTML = `<div class="empty">🔑 Gaaffiin Password Reset haaraa hin jiru.</div>`;
+        return;
+    }
+
+    pendingRequests.forEach((req, index) => {
+        const card = document.createElement("div");
+        card.className = "reset-card";
+        card.innerHTML = `
+            <div class="reset-left">
+                <div class="user-index">${index + 1}</div>
+                <div>
+                    <div class="user-name">📱 Phone/User: <strong>${escapeHTML(req.user)}</strong></div>
+                    <div class="user-phone">🕒 Time: ${escapeHTML(req.time || 'Amma')}</div>
+                </div>
+            </div>
+            <div>
+                <button class="approve" onclick="confirmPasswordReset('${escapeHTML(req.user)}')">
+                    ✅ Confirm Reset
+                </button>
+                <button class="reject" onclick="rejectPasswordReset('${escapeHTML(req.user)}')">
+                    ✕ Reject
+                </button>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function confirmPasswordReset(username) {
+    const key = "reset_request_" + username;
+    const reqData = localStorage.getItem(key);
+    if (reqData) {
+        const req = JSON.parse(reqData);
+        req.status = "approved";
+        localStorage.setItem(key, JSON.stringify(req));
+        alert("✅ " + username + " -f Password Reset eeyyamameera!");
+        refreshDashboard();
+    }
+}
+
+function rejectPasswordReset(username) {
+    const key = "reset_request_" + username;
+    localStorage.removeItem(key);
+    alert("❌ Gaaffiin Password Reset " + username + " haqameera.");
+    refreshDashboard();
+}
+
+
+/* =================================================
+   STATISTICS
+================================================= */
+
+function updateStats(){
+    const totalUsers = Object.keys(users).length;
+    const lockedTickets = Object.keys(tickets).length;
+    const pending = Object.values(payments).filter(p => p.status === "pending").length;
+    const approved = Object.values(payments).filter(p => p.status === "approved").length;
+
+    let resetCount = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("reset_request_")) {
+            try {
+                const data = JSON.parse(localStorage.getItem(key));
+                if (data && data.status === "pending") resetCount++;
+            } catch (e) {}
+        }
+    }
+
+    document.getElementById("userCount").innerText = totalUsers;
+    document.getElementById("resetCount").innerText = resetCount;
+    document.getElementById("ticketCount").innerText = lockedTickets;
+    document.getElementById("pendingCount").innerText = pending;
+    document.getElementById("approvedCount").innerText = approved;
+}
+
+
+/* =================================================
+   USERS
+================================================= */
+
+function showUsers(){
+    refreshData();
+    const list = document.getElementById("usersList");
+    const search = document.getElementById("userSearch").value.toLowerCase().trim();
+
+    const entries = Object.entries(users);
+    const filtered = entries.filter(entry => {
+        const phone = entry[0];
+        const user = entry[1];
+        const username = user.username || "";
+        return (phone.toLowerCase().includes(search) || username.toLowerCase().includes(search));
+    });
+
+    if(filtered.length === 0){
+        list.innerHTML = `<div class="empty">👥 User hin argamne.</div>`;
+        return;
+    }
+
+    list.innerHTML = "";
+
+    filtered.forEach(entry => {
+        const phone = entry[0];
+        const user = entry[1];
+
+        const userTickets = Object.keys(tickets).filter(number => tickets[number].phone === phone);
+        const pendingTickets = Object.values(payments)
+            .filter(payment => payment.phone === phone && payment.status === "pending")
+            .map(payment => payment.ticket);
+
+        let ticketHTML = "";
+
+        if(userTickets.length){
+            ticketHTML += "🔒 " + userTickets.join(", ");
+        }
+
+        if(pendingTickets.length){
+            if(ticketHTML) ticketHTML += " | ";
+            ticketHTML += "🟡 " + pendingTickets.join(", ");
+        }
+
+        if(!ticketHTML) ticketHTML = "—";
+
+        list.innerHTML += `
+        <div class="user-card">
+            <div>
+                <div class="user-name">👤 ${escapeHTML(user.username || "Unknown")}</div>
+                <div class="user-phone">📱 ${escapeHTML(phone)}</div>
+            </div>
+            <div class="user-ticket">🎫 ${ticketHTML}</div>
+        </div>`;
+    });
+}
+
+
+/* =================================================
+   PAYMENTS
+================================================= */
+
+function showPayments(){
+    refreshData();
+    const tbody = document.getElementById("paymentTable");
+    const search = document.getElementById("paymentSearch").value.toLowerCase().trim();
+    const filter = document.getElementById("paymentFilter").value;
+
+    let entries = Object.entries(payments);
+
+    entries = entries.filter(entry => {
+        const payment = entry[1];
+        const text = String(payment.ticket || "") + " " + String(payment.username || "") + " " + String(payment.phone || "");
+        const searchOK = text.toLowerCase().includes(search);
+        const filterOK = (filter === "all" || payment.status === filter);
+        return (searchOK && filterOK);
+    });
+
+    if(entries.length === 0){
+        tbody.innerHTML = `<tr><td colspan="7" class="empty">💳 Payment hin argamne.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = "";
+
+    entries.reverse().forEach(entry => {
+        const id = entry[0];
+        const payment = entry[1];
+
+        let statusClass = "pending";
+        if(payment.status === "approved") statusClass = "approved";
+        if(payment.status === "rejected") statusClass = "rejected";
+
+        tbody.innerHTML += `
+        <tr>
+            <td><strong>#${escapeHTML(String(payment.ticket))}</strong></td>
+            <td>${escapeHTML(payment.username || "Unknown")}</td>
+            <td>${escapeHTML(payment.phone || "")}</td>
+            <td>${escapeHTML(payment.method || "")}</td>
+            <td>${escapeHTML(payment.date || "")}</td>
+            <td><span class="status ${statusClass}">${escapeHTML(payment.status || "pending")}</span></td>
+            <td>
+                <button class="view" onclick="viewPayment('${id}')">👁️ View</button>
+                ${payment.status === "pending" ? `
+                    <button class="approve" onclick="approvePayment('${id}')">✓</button>
+                    <button class="reject" onclick="rejectPayment('${id}')">✕</button>
+                ` : ""}
+            </td>
+        </tr>`;
+    });
+}
+
+
+/* =================================================
+   VIEW PAYMENT
+================================================= */
+
+function viewPayment(id){
+    refreshData();
+    const payment = payments[id];
+
+    if(!payment){
+        alert("Payment hin argamne.");
+        return;
+    }
+
+    document.getElementById("paymentDetail").innerHTML = `
+    <strong>🎫 Ticket:</strong> ${escapeHTML(String(payment.ticket))}<br>
+    <strong>👤 Username:</strong> ${escapeHTML(payment.username || "")}<br>
+    <strong>📱 Phone:</strong> ${escapeHTML(payment.phone || "")}<br>
+    <strong>💳 Method:</strong> ${escapeHTML(payment.method || "")}<br>
+    <strong>🕒 Date:</strong> ${escapeHTML(payment.date || "")}<br>
+    <strong>📌 Status:</strong> ${escapeHTML(payment.status || "")}
+    `;
+
+    const image = document.getElementById("paymentScreenshot");
+    if(payment.screenshot){
+        image.src = payment.screenshot;
+        image.style.display = "block";
+    }else{
+        image.style.display = "none";
+    }
+
+    const actions = document.getElementById("modalActions");
+    if(payment.status === "pending"){
+        actions.innerHTML = `
+        <button class="approve" onclick="approvePayment('${id}');closeModal();">✅ Approve Payment</button>
+        <button class="reject" onclick="rejectPayment('${id}');closeModal();">❌ Reject Payment</button>
+        `;
+    }else{
+        actions.innerHTML = "";
+    }
+
+    document.getElementById("modal").style.display = "flex";
+}
+
+
+/* =================================================
+   APPROVE PAYMENT
+================================================= */
+
+function approvePayment(id){
+    refreshData();
+    const payment = payments[id];
+
+    if(!payment) return;
+
+    if(payment.status !== "pending"){
+        alert("Payment kun duraan " + payment.status + " dha.");
+        return;
+    }
+
+    const ticket = String(payment.ticket);
+
+    if(tickets[ticket]){
+        alert("❌ Ticket kun yeroo ammaa nama biraatiin lock ta'eera.");
+        payment.status = "rejected";
+        savePayments();
+        refreshDashboard();
+        return;
+    }
+
+    tickets[ticket] = {
+        phone: payment.phone,
+        username: payment.username,
+        paymentId: id,
+        date: new Date().toLocaleString()
+    };
+
+    payment.status = "approved";
+    payment.approvedAt = new Date().toLocaleString();
+
+    saveTickets();
+    savePayments();
+
+    alert("✅ Payment Approved!\nTicket #" + ticket + " locked.");
+    refreshDashboard();
+}
+
+
+/* =================================================
+   REJECT PAYMENT
+================================================= */
+
+function rejectPayment(id){
+    refreshData();
+    const payment = payments[id];
+
+    if(!payment) return;
+
+    if(payment.status !== "pending"){
+        alert("Payment kun duraan " + payment.status + " dha.");
+        return;
+    }
+
+    const ticket = String(payment.ticket);
+
+    payment.status = "rejected";
+    payment.rejectedAt = new Date().toLocaleString();
+
+    if(tickets[ticket] && tickets[ticket].paymentId === id){
+        delete tickets[ticket];
+        saveTickets();
+    }
+
+    savePayments();
+
+    alert("❌ Payment rejected.");
+    refreshDashboard();
+}
+
+
+/* =================================================
+   TICKETS 1-500
+================================================= */
+
+function showTickets(){
+    refreshData();
+    const grid = document.getElementById("ticketGrid");
+    grid.innerHTML = "";
+
+    for(let i=1; i<=500; i++){
+        const button = document.createElement("button");
+        button.className = "ticket";
+        button.innerText = i;
+        const key = String(i);
+
+        if(tickets[key]){
+            button.classList.add("taken");
+            button.title = (tickets[key].username || "User") + " - " + (tickets[key].phone || "");
+        }else{
+            const pending = Object.values(payments).find(payment => String(payment.ticket) === key && payment.status === "pending");
+            if(pending){
+                button.classList.add("pending");
+                button.title = "Pending: " + (pending.username || "");
+            }
+        }
+        grid.appendChild(button);
+    }
+}
+
+
+/* =================================================
+   CLOSE MODAL
+================================================= */
+
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+}
+
+
+/* =================================================
+   ESCAPE HTML
+================================================= */
+
+function escapeHTML(value){
+    return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* =================================================
+   AUTO REFRESH & ADMIN LOGIN CHECK
+================================================= */
+
+setInterval(refreshDashboard, 3000);
+
+if(sessionStorage.getItem("adminLoggedIn") === "true"){
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    refreshDashboard();
+}
+
+</script>
+
+</body>
+</html>
